@@ -76,11 +76,11 @@ sc.pp.scale(adata)
 def train_AE(model, x, X_raw, size_factor, batch_size=128, lr=0.001, epochs=50):
 
         optimizer = torch.optim.Adam(params=model.parameters(), 
-                                lr=lr, 
-                                betas=(0.9, 0.999), 
-                                eps=1e-08, 
-                                weight_decay=0.005, 
-                                amsgrad=False)
+                                    lr=lr, 
+                                    betas=(0.9, 0.999), 
+                                    eps=1e-08,
+                                    weight_decay=0.005, 
+                                    amsgrad=False)
     
         dataset = TensorDataset(torch.Tensor(x), torch.Tensor(X_raw), torch.Tensor(size_factor))
 #         dataset = TensorDataset(torch.Tensor(X_raw))
