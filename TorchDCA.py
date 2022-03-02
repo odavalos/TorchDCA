@@ -18,6 +18,8 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from torch.utils.data import TensorDataset, DataLoader
 
+from TorchDCA import TorchDCA
+
 
 sc.settings.set_figure_params(dpi=320, facecolor='white')
 
