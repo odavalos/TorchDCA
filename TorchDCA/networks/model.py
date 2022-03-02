@@ -37,7 +37,7 @@ class DCA(nn.Module):
                                 );
         
         # reconstruction
-        self.reconstruction = nn.linear(self.last_layer, self.in_dim)
+        self.reconstruction = nn.Linear(self.last_layer, self.in_dim)
 
 
 
