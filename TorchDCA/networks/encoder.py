@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 class Encoder(nn.Module):
-    def __init__(self, latent_dim = 100, input_size = None):
+    def __init__(self, latent_dim = 50, input_size = 13766):
         """
         
         The Encoder class
@@ -13,14 +13,17 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__();
         self.in_dim = input_size;
         self.zdim = latent_dim;
-        
-        # feed forward layers  
+
         self.enc = nn.Sequential(
-                                nn.Linear(self.inp_dim, 512),
+                                nn.Linear(self.in_dim, 512),
                                 nn.ReLU(),
                                 nn.BatchNorm1d(512),
             
-                                nn.Linear(512, self.zdim),
+                                nn.Linear(512, 256),
+                                nn.ReLU(),
+                                nn.BatchNorm1d(256),
+            
+                                nn.Linear(256, self.zdim),
                                 nn.ReLU(),
                                 nn.BatchNorm1d(self.zdim)
                                            )
@@ -32,6 +35,7 @@ class Encoder(nn.Module):
         
         """
 
-        out = self.enc(x)   
+        z = self.enc(x)
         
-        return out
+        
+        return z
