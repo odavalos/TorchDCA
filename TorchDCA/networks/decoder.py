@@ -7,7 +7,7 @@ class Decoder(nn.Module):
         The Decoder class
 
         """
-        
+        super(Decoder, self).__init__();
         self.in_dim = input_size;
         self.zdim = latent_dim;
         self.last_layer = final_layer;
