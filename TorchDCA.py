@@ -20,6 +20,7 @@ from torch.utils.data import TensorDataset, DataLoader
 
 from TorchDCA import DCA
 from TorchDCA.utils import *
+from TorchDCA.loss import zinb_loss
 
 
 sc.settings.set_figure_params(dpi=320, facecolor='white')
