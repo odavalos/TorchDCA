@@ -13,7 +13,7 @@ class Decoder(nn.Module):
         self.last_layer = final_layer;
 
         # decoder
-        self.decoder = nn.Sequential(
+        self.dec = nn.Sequential(
                                 nn.Linear(self.zdim, 256),
                                 nn.ReLU(),
                                 nn.BatchNorm1d(256),
@@ -28,7 +28,7 @@ class Decoder(nn.Module):
     def forward(self, z):
             
             
-        d = self.decoder(z)
+        d = self.dec(z)
 
 
 
