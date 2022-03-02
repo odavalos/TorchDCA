@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from loss import *
+from losses import *
 
 class DCA(nn.Module):
     def __init__(self, latent_dim = 50, final_layer = 512, input_size = 13766):
