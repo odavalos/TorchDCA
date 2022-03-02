@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from .encoder import Encoder
 from .decoder import Decoder
-from losses import *
+from .loss import *
 
 class DCA(nn.Module):
     def __init__(self, latent_dim = 50, final_layer = 512, input_size = 13766):
