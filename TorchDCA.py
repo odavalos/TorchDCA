@@ -35,9 +35,39 @@ else :
     
 
 
-# read in testing data
-adata = sc.read_h5ad('~/JupyterNBs/Misc_Projects/pbmc_3k_dca.h5ad')
+# # read in testing data
+# adata = sc.read_h5ad('~/JupyterNBs/Misc_Projects/pbmc_3k_dca.h5ad')
+pbmc3k = sc.datasets.pbmc3k_processed()
+adata = sc.datasets.pbmc3k()
+celltypes_series = pbmc3k.obs['louvain']
+filt_barcodes = list(celltypes_series.index)
+adata.obs['barcodes'] = adata.obs.index
 
+# filter certain barcodes
+adata = adata[adata.obs.index.isin(filt_barcodes)]
+
+adata.obs['louvain'] = celltypes_series
+
+### std processing ###
+# filter low expressed genes
+sc.pp.filter_genes(adata, min_counts=3)
+sc.pp.filter_cells(adata, min_counts=3)
+
+# keep raw data object
+adata.raw = adata.copy()
+
+sc.pp.normalize_per_cell(adata)
+# calculate size factors from library sizes (n_counts)
+adata.obs['size_factors'] = adata.obs.n_counts / np.median(adata.obs.n_counts)
+
+# log trans
+sc.pp.log1p(adata)
+
+# save raw object
+adata.raw = adata
+
+# scale data
+sc.pp.scale(adata)
 
 
 def train_AE(model, x, X_raw, size_factor, batch_size=128, lr=0.001, epochs=50):
