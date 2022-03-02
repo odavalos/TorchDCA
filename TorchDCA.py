@@ -18,7 +18,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from torch.utils.data import TensorDataset, DataLoader
 
-from TorchDCA import TorchDCA
+from TorchDCA import DCA
 from TorchDCA.loss import *
 
 
