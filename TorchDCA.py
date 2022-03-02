@@ -19,6 +19,7 @@ from torch.autograd import Variable
 from torch.utils.data import TensorDataset, DataLoader
 
 from TorchDCA import TorchDCA
+from TorchDCA.loss import *
 
 
 sc.settings.set_figure_params(dpi=320, facecolor='white')
