@@ -1,5 +1,7 @@
 import torch
 import torch.nn as nn
+from .encoder import Encoder
+from .decoder import Decoder
 from losses import *
 
 class DCA(nn.Module):
