@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-lass Decoder(nn.Module):
+class Decoder(nn.Module):
     def __init__(self, latent_dim = 50, final_layer = 512, input_size = 13766):
         """
 
