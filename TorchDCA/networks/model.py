@@ -60,7 +60,7 @@ class DCA(nn.Module):
         recon = self.reconstruction(d)
 
 
-        return z, mean, disp, pi, recon
+        return z, recon, mean, disp, pi
     
     
 #     def zinb_loss(x, mean, disp, pi, scale_factor=1.0, ridge_lambda=0.0):
