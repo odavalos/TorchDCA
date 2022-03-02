@@ -75,44 +75,44 @@ sc.pp.scale(adata)
 
 def train_AE(model, x, X_raw, size_factor, batch_size=128, lr=0.001, epochs=50):
 
-        optimizer = torch.optim.Adam(params=model.parameters(), 
-                                    lr=lr, 
-                                    betas=(0.9, 0.999), 
-                                    eps=1e-08,
-                                    weight_decay=0.005, 
-                                    amsgrad=False)
+    optimizer = torch.optim.Adam(params=model.parameters(), 
+                                lr=lr, 
+                                betas=(0.9, 0.999), 
+                                eps=1e-08,
+                                weight_decay=0.005, 
+                                amsgrad=False)
     
-        dataset = TensorDataset(torch.Tensor(x), torch.Tensor(X_raw), torch.Tensor(size_factor))
+    dataset = TensorDataset(torch.Tensor(x), torch.Tensor(X_raw), torch.Tensor(size_factor))
 #         dataset = TensorDataset(torch.Tensor(X_raw))
-        dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-        print("Training")
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    print("Training")
 
-        for epoch in range(epochs):
-            for batch_idx, (x_batch, x_raw_batch, sf_batch) in enumerate(dataloader):
-                
-                x_tensor = Variable(x_batch).to(device)
-                x_raw_tensor = Variable(x_raw_batch).to(device)
-                sf_tensor = Variable(sf_batch).to(device)
-                
-                z, d, mean_tensor, disp_tensor, pi_tensor = model(x_tensor)
-                
-                mse_loss = F.mse_loss(d, x_tensor)
-                z_loss = zinb_loss(x_raw_tensor, mean_tensor, disp_tensor, pi_tensor, sf_tensor)
-                
-                loss = mse_loss + z_loss
-                
-                optimizer.zero_grad()
-                
-                loss.backward()
-    
-                # optimizer.zero_grad()
-        
-                optimizer.step()
+    for epoch in range(epochs):
+        for batch_idx, (x_batch, x_raw_batch, sf_batch) in enumerate(dataloader):
+
+            x_tensor = Variable(x_batch).to(device)
+            x_raw_tensor = Variable(x_raw_batch).to(device)
+            sf_tensor = Variable(sf_batch).to(device)
+
+            z, d, mean_tensor, disp_tensor, pi_tensor = model(x_tensor)
+
+            mse_loss = F.mse_loss(d, x_tensor)
+            z_loss = zinb_loss(x_raw_tensor, mean_tensor, disp_tensor, pi_tensor, sf_tensor)
+
+            loss = mse_loss + z_loss
+
+            optimizer.zero_grad()
+
+            loss.backward()
+
+            # optimizer.zero_grad()
+
+            optimizer.step()
 #                 print('Epoch [{}/{}], ZINB loss:{:.4f}'.format(batch_idx+1, epoch+1, loss.item()))
-            print('Epoch [{}/{}], ZINB loss:{:.4f}'.format(epoch+1, epochs, loss.item()))
-    
-        
-        return model
+        print('Epoch [{}/{}], ZINB loss:{:.4f}'.format(epoch+1, epochs, loss.item()))
+
+
+    return model
 
 dca_model = DCA(input_size=adata.n_vars).to(device)
 
