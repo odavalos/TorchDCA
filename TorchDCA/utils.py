@@ -13,6 +13,5 @@ class DispAct(nn.Module):
         super(DispAct, self).__init__()
 
     def forward(self, x):
-        return torch.clamp(nn.softplus(x), min=1e-4, max=1e4)
-
+        return torch.clamp(F.softplus(x), min=1e-4, max=1e4)
 
