@@ -29,18 +29,18 @@ def zinb_loss(x, mean, disp, pi, scale_factor=1.0, ridge_lambda=0.0):
 
 
 
-class MeanAct(nn.Module):
-    def __init__(self):
-        super(MeanAct, self).__init__()
+# class MeanAct(nn.Module):
+#     def __init__(self):
+#         super(MeanAct, self).__init__()
 
-    def forward(self, x):
-        return torch.clamp(torch.exp(x), min=1e-5, max=1e6)
+#     def forward(self, x):
+#         return torch.clamp(torch.exp(x), min=1e-5, max=1e6)
 
-class DispAct(nn.Module):
-    def __init__(self):
-        super(DispAct, self).__init__()
+# class DispAct(nn.Module):
+#     def __init__(self):
+#         super(DispAct, self).__init__()
 
-    def forward(self, x):
-        return torch.clamp(F.softplus(x), min=1e-4, max=1e4)
+#     def forward(self, x):
+#         return torch.clamp(F.softplus(x), min=1e-4, max=1e4)
 
 
