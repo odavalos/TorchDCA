@@ -95,9 +95,9 @@ def train_AE(model, x, X_raw, size_factor, batch_size=128, lr=0.001, epochs=50):
             x_raw_tensor = Variable(x_raw_batch).to(device)
             sf_tensor = Variable(sf_batch).to(device)
 
-            z, d, mean_tensor, disp_tensor, pi_tensor = model(x_tensor)
+            z, recon, mean_tensor, disp_tensor, pi_tensor = model(x_tensor)
 
-            mse_loss = F.mse_loss(d, x_tensor)
+            mse_loss = F.mse_loss(recon, x_tensor)
             z_loss = zinb_loss(x_raw_tensor, mean_tensor, disp_tensor, pi_tensor, sf_tensor)
 
             loss = mse_loss + z_loss
@@ -123,7 +123,7 @@ dca_trained = train_AE(dca_model, x=adata.X, X_raw=adata.raw.X.todense(), size_f
 
 # 
 z = dca_trained(torch.Tensor(adata.X))[0].detach().numpy()
-d = dca_trained(torch.Tensor(adata.X))[1].detach().numpy()
+recon = dca_trained(torch.Tensor(adata.X))[1].detach().numpy()
 means = dca_trained(torch.Tensor(adata.X))[2].detach().numpy()
 disps = dca_trained(torch.Tensor(adata.X))[3].detach().numpy()
 dropout = dca_trained(torch.Tensor(adata.X))[4].detach().numpy()
