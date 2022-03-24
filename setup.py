@@ -18,7 +18,7 @@ setup(
       packages=find_packages(),
       keywords=['Single-cell RNA-seq', 'scRNA-seq','Clustering', 'Neural Networks', 'Autoencoders', 'Tabular Data'],
       install_requires=[
-                        'scanpy>=1.8.2',
+                        'scanpy>=1.8.1',
                         'numpy>=1.20.3',
                         'torch>=1.10.2'
                         ]
